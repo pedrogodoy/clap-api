@@ -21,7 +21,18 @@ class ArticleController {
     return res.status(201).json(article);
   }
 
+  async get(req: Request, res: Response) {
+    const articlesRepository = getRepository(Article);
+    const clapsRepository = getRepository(Claps);
+
+    const article = await articlesRepository.findOne();
+    const claps = await clapsRepository.findOne();
+
+    return res.status(200).json({ article, claps });
+  }
+
   async claps(req: Request, res: Response) {
+    const { claps } = req.body;
     // const { article_id } = req.params;
     // const { user_id } = req.headers;
     const articlesRepository = getRepository(Article);
@@ -42,7 +53,7 @@ class ArticleController {
 
     if(!clap) {
       const newClap = clapsRepository.create({
-        claps: 0,
+        claps,
         user_id: user.id,
         article_id: article.id
       })
@@ -52,18 +63,18 @@ class ArticleController {
       return res.status(201).json(newClap);
     }
 
-    if(clap.claps === 50) {
+    if(claps >= 50) {
       throw new AppError('Max claps by the article is 50!', 400);
     }
 
-    const incrementedClap = clap.claps + 1;
-
     await clapsRepository.update({ id: clap.id }, {
-      claps: incrementedClap
+      claps
     });
 
-    return res.status(200).json({ claps: incrementedClap });
+    return res.status(200).json({ claps });
   }
+
+
 
 }
 

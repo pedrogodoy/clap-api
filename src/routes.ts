@@ -9,6 +9,7 @@ const articleController = new ArticleController();
 
 router.post("/users", usersController.create);
 router.post("/articles", articleController.create);
-router.patch("/articles/claps", articleController.claps);
+router.get("/articles", articleController.get);
+router.post("/articles/claps", articleController.claps);
 
 export { router };
