@@ -6,6 +6,10 @@ class ClapsController {
 
     return res.status(200).json({ article_id: 1, user_id: 1, claps });
   }
+
+  async incClaps(req: Request, res: Response) {
+    
+  }
 }
 
 export { ClapsController };
