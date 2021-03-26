@@ -25,3 +25,5 @@ class Claps {
   article: Article;
 
 }
+
+export { Claps }
