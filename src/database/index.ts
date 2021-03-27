@@ -3,18 +3,14 @@ import { Connection, createConnection, getConnectionOptions, TreeChildren } from
 export default async (): Promise<Connection> => {
   const defaultOptions = await getConnectionOptions();
 
-  // return createConnection({ 
-  //   type: "sqlite",
-  //   database: "./src/database/database.sqlite",
-  //   migrations: ["./src/database/migrations/**.ts"],
-  //   entities: ["./src/models/*.ts"],
-  //   logging: true,
-  //   migrationsRun: true,
-  //   cli: {
-  //     migrationsDir: "./src/database/migrations"
-  //   }
-  // });
-
-  return createConnection(defaultOptions);
+  return createConnection(
+    //If the test env, use the test database
+    Object.assign(defaultOptions, {
+      database: 
+        process.env.NODE_ENV === 'test' 
+          ? "mediumtest" 
+          : defaultOptions.database 
+    })
+  );
 }
 

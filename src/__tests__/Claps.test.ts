@@ -7,6 +7,8 @@ import createConnection from '../database';
 describe("Claps", () => {
   beforeAll(async () => {
     const connection = await createConnection();
+    await connection.runMigrations();
+
     await request(app).post("/articles")
       .send({
         title: 'test article',
@@ -26,7 +28,7 @@ describe("Claps", () => {
     await connection.close();
   });
 
-  it("Should be able to create a row in clap", async() => {
+  it("Should be able to create a row in table clap", async() => {
     const response = await request(app).post("/articles/claps")
       .send({
         claps: 30
