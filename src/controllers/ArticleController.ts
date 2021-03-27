@@ -60,7 +60,7 @@ class ArticleController {
 
       await clapsRepository.save(newClap);
 
-      return res.status(201).json(newClap);
+      return res.status(200).json(newClap);
     }
 
     if(claps >= 50) {

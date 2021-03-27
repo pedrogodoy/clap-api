@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import express, { NextFunction, Request, Response } from 'express';
 import createConnection from './database';
 import "express-async-errors";
