@@ -11,5 +11,6 @@ router.post("/users", usersController.create);
 router.post("/articles", articleController.create);
 router.get("/articles", articleController.get);
 router.post("/articles/claps", articleController.claps);
+router.get("/articles/claps", articleController.getClaps);
 
 export { router };

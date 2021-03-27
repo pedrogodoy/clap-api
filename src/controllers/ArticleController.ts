@@ -33,6 +33,7 @@ class ArticleController {
 
   async claps(req: Request, res: Response) {
     const { claps } = req.body;
+    console.log('chamou!!!');
     // const { article_id } = req.params;
     // const { user_id } = req.headers;
     const articlesRepository = getRepository(Article);
@@ -63,7 +64,7 @@ class ArticleController {
       return res.status(200).json(newClap);
     }
 
-    if(claps >= 50) {
+    if(claps > 50) {
       throw new AppError('Max claps by the article is 50!', 400);
     }
 
@@ -72,6 +73,13 @@ class ArticleController {
     });
 
     return res.status(200).json({ claps });
+  }
+
+  async getClaps(req: Request, res: Response) {
+    const clapsRepository = getRepository(Claps);
+    const clap = await clapsRepository.findOne();
+
+    return res.status(200).json({ clap });
   }
 
 

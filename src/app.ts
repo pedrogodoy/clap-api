@@ -4,10 +4,12 @@ import createConnection from './database';
 import "express-async-errors";
 import { router } from './routes';
 import { AppError } from './errors/AppError';
+import cors from 'cors';
 
 createConnection();
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(router);
 
