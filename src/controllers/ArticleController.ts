@@ -79,7 +79,7 @@ class ArticleController {
     const clapsRepository = getRepository(Claps);
     const clap = await clapsRepository.findOne();
 
-    return res.status(200).json({ clap });
+    return res.status(200).json(clap);
   }
 
 
