@@ -1,0 +1,5 @@
+CREATE DATABASE medium;
+GRANT ALL PRIVILEGES ON DATABASE medium TO postgres;
+
+CREATE DATABASE mediumtest;
+GRANT ALL PRIVILEGES ON DATABASE mediumtest TO postgres;

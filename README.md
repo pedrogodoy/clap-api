@@ -44,24 +44,33 @@ yarn test
 Para criar a imagem do banco de dados, utilize:
 
 ```sh
-docker build -t postgres-image -f /db/Dockerfile
+sudo docker build . -t postgres-image -f ./db/Dockerfile
 ```
 
 Para criar o container do banco de dados Postgres, utilize:
 ```sh
-docker run -v $(pwd)/db/data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=pgroot -e PGDATA=/var/lib/postgresql/data/db-files/ -p 5432:5432 --rm --name postgres-container postgres-image
+docker run -v $(pwd)/db/data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=pgroot -e PGDATA=/var/lib/postgresql/data/db-files/ -p 5433:5432 --rm --name postgres-container postgres-image
 ```
 
 ## Docker - API
+Antes de criar a imagem e iniciar o container da API, certifique-se de que o container do postgres esteja executando e execute o seguinte comando para descobrir o ip do mesmo:
+
+```sh
+docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' postgres-container
+```
+Após descobrir o endereço ip, basta colocá-lo no host do arquivo ormconfig.json.
+
+
 Para criar a imagem da API, utilize o comando:
 
 ```sh
-docker build -t node-image -f Dockerfile .
+sudo docker build -t node-image -f Dockerfile .
 ```
 
-Para criar o container da API, utilize:
+
+Para criar e iniciar o container da API, utilize:
 ```sh
-docker run -v $(pwd)/sigeauto-api-v2:/home/node/app -p 3333:3333 --rm --name node-container node-image
+docker run -v $(pwd):/home/node/app -p 3333:3333 --rm --name node-container node-image
 ```
 
 PS: talvez as configurações tenham de ser alteradas dependendo do ambiente
@@ -69,5 +78,5 @@ PS: talvez as configurações tenham de ser alteradas dependendo do ambiente
 Verificar a aplicação
 
 ```sh
-localhost:3333
+localhost:3333/articles
 ```
